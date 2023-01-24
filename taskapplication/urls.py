@@ -1,3 +1,4 @@
+
 """taskapplication URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
@@ -16,15 +17,17 @@ Including another URLconf
 from unicodedata import name
 from django.contrib import admin
 from django.urls import path
-from task.views import Indexview,Loginview,Registerview,AddTaskview, TaskDeleteView,Tasklistview,TaskDEtailView
+from task.views import Indexview,Loginview,Registerview,AddTaskview, TaskDeleteView, TaskUpdateView,Tasklistview,TaskDEtailView, sign_out
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("home/",Indexview.as_view()),
-    path("login/",Loginview.as_view()),
-    path("reg/",Registerview.as_view()),
+    path("",Loginview.as_view(),name="signin"),
+    path("account/reg/",Registerview.as_view()),
     path("addtask/",AddTaskview.as_view(),name="todo-add"),
     path("task/all/",Tasklistview.as_view(),name="todo-list"),
     path("todo/<int:id>",TaskDEtailView.as_view(),name="todo-detail"),
     path("todo/<int:id>/delete",TaskDeleteView.as_view(),name="todo-delete"),
+    path("account/logout/",sign_out,name="signout"),
+    path("task/update/<int:id>",TaskUpdateView.as_view(),name="task-update")
 ]
